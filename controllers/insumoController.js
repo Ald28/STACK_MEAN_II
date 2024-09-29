@@ -4,8 +4,8 @@ const Proveedor = require('../models/proveedores');
 // Mostrar la lista de insumos
 const mostrarInsumos = async (req, res) => {
     try {
-        const insumos = await Insumo.find().populate('idprovedor', 'nombrecia'); // Relacionar con proveedor
-        res.render('insumo', { insumos }); // Renderizar la vista de insumos
+        const insumos = await Insumo.find().populate('idprovedor', 'nombrecia');
+        res.render('insumo', { insumos }); 
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -14,15 +14,12 @@ const mostrarInsumos = async (req, res) => {
 // Crear un nuevo insumo
 const crearInsumo = async (req, res) => {
     const { nominsumo, idprovedor, preUni, stock } = req.body;
-
+    
     try {
-        // Verificar que el proveedor existe
         const proveedor = await Proveedor.findById(idprovedor);
         if (!proveedor) {
             return res.status(404).json({ error: 'Proveedor no encontrado' });
         }
-
-        // Crear el insumo si el proveedor existe
         const nuevoInsumo = new Insumo({
             nominsumo,
             idprovedor,
@@ -31,7 +28,7 @@ const crearInsumo = async (req, res) => {
         });
 
         await nuevoInsumo.save();
-        res.redirect('/insumo');  // Redirige a la lista de insumos
+        res.redirect('/insumo');
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -40,8 +37,8 @@ const crearInsumo = async (req, res) => {
 // Mostrar el formulario para agregar un insumo
 const mostrarFormularioAgregarInsumo = async (req, res) => {
     try {
-        const proveedores = await Proveedor.find(); // Obtener todos los proveedores
-        res.render('agregarInsumo', { proveedores }); // Renderizar la vista con los proveedores
+        const proveedores = await Proveedor.find();
+        res.render('agregarInsumo', { proveedores });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -52,14 +49,14 @@ const mostrarFormularioEditarInsumo = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const insumo = await Insumo.findById(id).populate('idprovedor'); // Obtener el insumo por ID y el proveedor relacionado
-        const proveedores = await Proveedor.find(); // Obtener todos los proveedores
+        const insumo = await Insumo.findById(id).populate('idprovedor'); 
+        const proveedores = await Proveedor.find();
 
         if (!insumo) {
             return res.status(404).json({ error: 'Insumo no encontrado' });
         }
 
-        res.render('editarInsumo', { insumo, proveedores }); // Renderizar la vista de edición con el insumo y proveedores
+        res.render('editarInsumo', { insumo, proveedores });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -77,8 +74,8 @@ const actualizarInsumo = async (req, res) => {
             preUni,
             stock
         }, { new: true });
-        
-        res.redirect('/insumo');  // Redirige a la lista de insumos después de actualizar
+
+        res.redirect('/insumo');
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
@@ -91,7 +88,7 @@ const eliminarInsumo = async (req, res) => {
 
     try {
         await Insumo.findByIdAndDelete(id);
-        res.redirect('/insumo'); // Redirigir a la lista de insumos después de eliminar
+        res.redirect('/insumo');
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

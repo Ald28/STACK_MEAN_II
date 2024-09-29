@@ -15,7 +15,7 @@ const crearProveedor = async (req, res) => {
     const proveedor = new Proveedor(req.body);
     try {
         await proveedor.save();
-        res.redirect('/proveedor');  // Redirige a la lista de proveedores
+        res.redirect('/proveedor');  
     } catch (err) {
         res.status(400).json({ error: err.message });
     }

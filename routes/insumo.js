@@ -17,6 +17,7 @@ router.post('/eliminar/:id', insumoController.eliminarInsumo);
 // Mostrar el formulario para agregar insumo
 router.get('/agregar', insumoController.mostrarFormularioAgregarInsumo);
 
+// Mostrar el formulario para edutar el insumo
 router.get('/editar/:id', insumoController.mostrarFormularioEditarInsumo);
 
 

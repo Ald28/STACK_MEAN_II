@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="css/index.css">
     <title>Clientes</title>
 </head>
+
 <body>
     <nav class="navbar navbar-expand navbar-light bg-faded">
         <div class="container">
@@ -24,7 +26,7 @@
             </ul>
         </div>
     </nav>
-    
+
     <div class="container mt-5">
         <h2>Lista de Clientes</h2>
         <a href="/agregar" class="btn btn-primary mb-3">Agregar Cliente</a>
@@ -38,12 +40,18 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (clientes.length > 0) { %>
+                <% if (clientes.length> 0) { %>
                     <% clientes.forEach(function(cliente) { %>
                         <tr>
-                            <td><%= cliente.nombre %></td>
-                            <td><%= cliente.apellidos %></td>
-                            <td><%= cliente.direccion %></td>
+                            <td>
+                                <%= cliente.nombre %>
+                            </td>
+                            <td>
+                                <%= cliente.apellidos %>
+                            </td>
+                            <td>
+                                <%= cliente.direccion %>
+                            </td>
                             <td>
                                 <a href="/editar/<%= cliente._id %>" class="btn btn-warning">Editar</a>
                                 <form action="/eliminar/<%= cliente._id %>" method="POST" style="display:inline;">
@@ -51,14 +59,15 @@
                                 </form>
                             </td>
                         </tr>
-                    <% }) %>
-                <% } else { %>
-                    <tr>
-                        <td colspan="4">No se encontraron clientes</td>
-                    </tr>
-                <% } %>
+                        <% }) %>
+                            <% } else { %>
+                                <tr>
+                                    <td colspan="4">No se encontraron clientes</td>
+                                </tr>
+                                <% } %>
             </tbody>
         </table>
     </div>
 </body>
+
 </html>
